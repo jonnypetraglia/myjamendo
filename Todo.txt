@@ -1,0 +1,102 @@
+Fragments:
+  - Titlebar (swipe button, title, Jamendo loading icon)
+  - Swipe menu (user{My Profile, Playlists, Favorites, ...}, menu{Featured, Radios, Search, Settings})
+  - List Fragment (listview with List Items; loads them based on Queue Source)
+  - Now Playing
+  - Profile
+  - Settings
+  - Start Page (pretty logo)
+  - Album Page (art, album, artist, listview w/ tracks)
+    - track fragment
+  - Artist Page (Pic, Artist, genres, collapsible desc, Top Tracks, Discographie)
+    - track fragment
+    - album fragment
+
+JUST layouts:
+  - Tabs (Track, Album, Artists, etc)
+  - Search Bar
+
+Other Layouts:
+  - List Item (Album art, Title, Subtitle, menu button on right)
+  - Main (has Titlebar and fragment)
+  - Supreme Master (has Main, Swipe, and pull up containing Now Playing)
+  - Tablet Master (has Swipe, Main, and Now Playing which can be hidden)
+  - Old Master (has Main; swipe button is replaced with back button; swipe is inserted into main when pressed back)
+
+
+Clicking an item in Swipe switches to (does not stack) Fragment in Main
+  - Insert data into the Fragment to determine what type it is.
+  - Show tabs if it is: Featured, Search
+  - Show search bar if it is: Search
+
+
+
+
+
+Inside Fragments Events:
+  - Press Listview Item
+    - Options of things it can be:
+      - Featured
+        - Track = Fetch to Cache, change Queue Source, and Start Playing
+        - Album = Stack Album Page fragment
+        - Artist = Stack Artist Page fragment
+  - Press Tab
+    - Get what fragment is from self
+    - If search, re-search using tab's value as criteria
+    - If Featured, load featured using tab's value as criteria
+  - Press anything in Now Playing
+    - Seek
+    - Pause
+    - Next
+    - Previous
+  - Launch Search
+    - Launch search populate SQL, & update Listview Fragment
+
+
+
+Queue Source is where the songs are currently coming from.
+  - e.g. "Featured Track"
+  - When a song finishes, this determines how the app should choose the next track
+
+
+========= Procedures ==========
+
+
+Fetch to Cache:
+  - Pulls a list of tracks and stores it in the "SQL Cache"; a table of tracks
+  - Is set to contain what the Queue Source is, and when (each item) was fetched
+
+
+Load into Listview from Cache:
+  - Tracks
+    - Featured
+    - Search
+  - Albums
+    - Featured
+    - Search
+  - Artists
+    - Featured
+    - Search
+  - Radios
+  - Playlists
+    - Search
+    - MyUser
+  - Favorites
+    - MyUser
+  - Users
+    - Search
+  * Set Album Art to a default image; update asyncronously
+  * Clear everything in cache timestamped longer than 1 day ago
+    * Pull-up to refresh instantly
+  *
+
+
+
+
+
+
+
+
+TitleBar: Jamendo icon for loading
+"jamendo" theme
+Main: onItemClick

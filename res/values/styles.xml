@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="jamendo" parent="@android:style/Theme.Holo.NoActionBar">
+    <!--
+        Nav:
+            Text Color
+            Text Size
+            Text Color for title
+            Text Size for title
+            Background
+
+        Titlebar:
+            Drawable for loading
+            Drawable for not loading
+            Background
+            Background for button
+            Background
+
+        Playing:
+            Background for drawer handle
+            Drawable for drawer handle
+
+    -->
+    </style>
 </resources>
