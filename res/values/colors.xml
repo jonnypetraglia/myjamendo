@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="icon_color">#703070</color>
+    <color name="orange">#efaa42</color>
+    <color name="j_title_bar">#4f3150</color>
+    <color name="j_title_bar_sep">#79547a</color>
+    <color name="j_top">#693f6a</color>
+    <color name="j_bottom">#432144</color>
+    <color name="j_shadow">#251225</color>
+    <color name="soft_txt_color">#888888</color>
+</resources>

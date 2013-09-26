@@ -48,7 +48,7 @@
 
     <fragment android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:name="android.app.ListFragment"
+              android:name="com.qweex.myjamendo.ListFragment"
               android:id="@+id/frag_listview"
               android:layout_gravity="center"/>
 

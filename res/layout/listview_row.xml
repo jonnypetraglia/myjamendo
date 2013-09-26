@@ -5,13 +5,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img"
             android:layout_gravity="left|center_vertical"
             android:src="@drawable/icon"/>
+
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
@@ -19,16 +19,19 @@
             android:layout_gravity="center">
 
         <TextView
+                style="@style/listview_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:id="@+id/title"
-                android:layout_gravity="left|center_vertical"
-                android:textSize="18sp"/>
+                android:layout_gravity="left|center_vertical"/>
         <TextView
+                style="@style/listview_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subtitle"
                 android:id="@+id/subtitle"/>
+
     </LinearLayout>
+
 </LinearLayout>

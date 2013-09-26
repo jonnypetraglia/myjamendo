@@ -3,23 +3,51 @@
     <style name="jamendo" parent="@android:style/Theme.Holo.NoActionBar">
     <!--
         Nav:
-            Text Color
-            Text Size
-            Text Color for title
-            Text Size for title
             Background
+            Selector
 
         Titlebar:
             Drawable for loading
             Drawable for not loading
-            Background
             Background for button
-            Background
+            !SearchView is impossible
 
         Playing:
             Background for drawer handle
             Drawable for drawer handle
+            Background
+            Drawable for next, previous
+            Drawable for play, pause/stop
 
+
+        ListView:
+            Background
+            Selector
+            Text color
+
+        Tabs
     -->
+        <item name="android:windowActionBar">true</item>
     </style>
+    <style name="nav_title">
+        <item name="@android:textColor">@color/soft_txt_color</item>
+        <item name="@android:padding">5sp</item>
+        <item name="@android:textSize">12sp</item>
+        <item name="@android:textAllCaps">true</item>
+    </style>
+
+    <style name="nav_entry">
+        <item name="@android:padding">5sp</item>
+        <item name="@android:textSize">30sp</item>
+    </style>
+
+    <style name="listview_title">
+        <item name="@android:textSize">18sp</item>
+        <item name="@android:textColor">@color/icon_color</item>
+    </style>
+
+    <style name="listview_subtitle" parent="listview_title">
+        <item name="@android:textSize">12sp</item>
+    </style>
+
 </resources>

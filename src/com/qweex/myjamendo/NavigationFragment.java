@@ -1,7 +1,5 @@
 package com.qweex.myjamendo;
 
-import android.*;
-import android.R;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,11 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class NavigationFragment extends ListFragment
 {
     MasterActivity MasterActivityRef;
     View contentView;
+
+    ArrayList<NavigationEntry> entries;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +39,41 @@ public class NavigationFragment extends ListFragment
         return contentView;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        this.getListView().setBackgroundColor(getResources().getColor(R.color.j_shadow));
+        createAdapter();
+    }
+
+    private void createAdapter()
+    {
+        entries = new ArrayList<NavigationEntry>();
+
+        /*
+        if(isLoggedIn)
+        {
+            entries.add(new NavigationEntry(myUsername, true));
+            entries.add(new NavigationEntry(R.string.my_profile, false));
+            entries.add(new NavigationEntry(R.string.playlists, false));
+            entries.add(new NavigationEntry(R.string.favorites, false));
+        }//*/
+        entries.add(new NavigationEntry(R.string.jamendo, true));
+        entries.add(new NavigationEntry(R.string.featured, false));
+        entries.add(new NavigationEntry(R.string.radios, false));
+        entries.add(new NavigationEntry(R.string.search, false));
+        //if(!isLoggedIn)
+            entries.add(new NavigationEntry(R.string.log_in, false));
+        entries.add(new NavigationEntry(R.string.settings, false));
+        entries.add(new NavigationEntry(R.string.about, false));
+
+        NavigationAdapter na = new NavigationAdapter(this.getActivity(),
+                R.layout.nav_entry, R.layout.nav_title, entries);
+
+        setListAdapter(na);
+    }
+
 
 
     private class NavigationEntry
@@ -47,18 +85,23 @@ public class NavigationFragment extends ListFragment
             this.value = value;
             this.isTitle = isTitle;
         }
+        NavigationEntry(int valueID, boolean isTitle)
+        {
+            this.value = getResources().getString(valueID);
+            this.isTitle = isTitle;
+        }
     }
 
     private class NavigationAdapter extends BaseAdapter
     {
         private final Context context;
-        private final NavigationEntry[] entries;
+        private final ArrayList<NavigationEntry> entries;
         private final int resourceEntry, resourceTitle;
 
         public NavigationAdapter(Context context,
                                  int resourceEntry,
                                  int resourceTitle,
-                                 NavigationEntry[] entries) {
+                                 ArrayList<NavigationEntry> entries) {
             this.context = context;
             this.resourceEntry = resourceEntry;
             this.resourceTitle = resourceTitle;
@@ -67,12 +110,12 @@ public class NavigationFragment extends ListFragment
 
         @Override
         public int getCount() {
-            return entries.length;
+            return entries.size();
         }
 
         @Override
         public NavigationEntry getItem(int i) {
-            return entries[i];
+            return entries.get(i);
         }
 
         @Override
@@ -84,12 +127,14 @@ public class NavigationFragment extends ListFragment
         public View getView(int i, View view, ViewGroup viewGroup) {
             View rowView = view;
             if(rowView==null ||
-                    (entries[i].isTitle!="title".equals(rowView.findViewById(R.id.text1).getTag())))
+                    (entries.get(i).isTitle!="title".equals(rowView.findViewById(android.R.id.text1).getTag())))
             {
                 rowView = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                        .inflate(entries[i].isTitle ? resourceTitle : resourceEntry, viewGroup, false);
+                        .inflate(entries.get(i).isTitle ? resourceTitle : resourceEntry, viewGroup, false);
             }
 
+            TextView tv = (TextView) rowView.findViewById(android.R.id.text1);
+            tv.setText(entries.get(i).value);
 
             return rowView;
         }

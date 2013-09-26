@@ -1,8 +1,4 @@
 Fragments:
-  - Titlebar (swipe button, title, Jamendo loading icon)
-  - Swipe menu (user{My Profile, Playlists, Favorites, ...}, menu{Featured, Radios, Search, Settings})
-  - List Fragment (listview with List Items; loads them based on Queue Source)
-  - Now Playing
   - Profile
   - Settings
   - Start Page (pretty logo)

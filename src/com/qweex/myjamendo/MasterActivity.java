@@ -2,14 +2,14 @@ package com.qweex.myjamendo;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.*;
 
 public class MasterActivity extends Activity
 {
@@ -17,20 +17,23 @@ public class MasterActivity extends Activity
 
     public static DEVICE_TYPE DeviceType;
 
-    Button swipe_button;
+    ImageButton titlebar_button;
     ProgressBar loading;
     ImageView not_loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
-        //if tablet
-        //   tablet ui
+        boolean isTablet = true && false;
+        if(isTablet)
+        {
+            DeviceType = DEVICE_TYPE.TABLET;
+            setContentView(R.layout.master_tablet);
+        }
         //if >4
         //   old ui
-        //else
+        else
         {
             DeviceType = DEVICE_TYPE.NEW_PHONE;
             setContentView(R.layout.master_phone);
@@ -40,6 +43,7 @@ public class MasterActivity extends Activity
         loading = (ProgressBar) findViewById(R.id.titlebar_progress_start);
         not_loading = (ImageView) findViewById(R.id.titlebar_progress_stop);
         stopLoading();
+
 
         setupTabs("Jamendo", false, false);
     }
@@ -64,16 +68,16 @@ public class MasterActivity extends Activity
 
 
         // --------------- Swipe Buttons ----------------
-        swipe_button = (Button) findViewById(R.id.titlebar_button);
+        titlebar_button = (ImageButton) findViewById(R.id.titlebar_button);
         switch(MasterActivity.DeviceType)
         {
             case TABLET:
                 //TODO: Should not exist?
             case OLD_PHONE:
-                swipe_button.setOnClickListener(pressBack);
+                titlebar_button.setOnClickListener(pressBack);
             case NEW_PHONE:
             default:
-                swipe_button.setOnClickListener(pressSwipe);
+                titlebar_button.setOnClickListener(pressSwipe);
         }
     }
 
@@ -109,5 +113,13 @@ public class MasterActivity extends Activity
     {
         loading.setVisibility(View.GONE);
         not_loading.setVisibility(View.VISIBLE);
+    }
+
+    public static int getThemeColor(Context context, int attr) // attr = R.attr.theme_color
+    {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(attr, typedValue, true);
+        return typedValue.data;
     }
 }
