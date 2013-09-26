@@ -35,6 +35,7 @@ public class MainFragment extends Fragment
 
         // --------------- Set up tabs ----------------
         tabs = (TabHost) contentView.findViewById(R.id.tabHost);
+
         tabs.setup();
         String[] tabNames = {"Track", "Album", "Artists", "Playlists", "Users"};
         for(String t : tabNames)
@@ -45,6 +46,19 @@ public class MainFragment extends Fragment
             tabs.addTab(spec1);
         }
         tabs.setOnTabChangedListener(changeTab);
+
+
+        TabWidget widget = tabs.getTabWidget();
+        for(int i = 0; i < widget.getChildCount(); i++)
+        {
+            View v = widget.getChildAt(i);
+
+            // Look for the title view to ensure this is an indicator and not a divider.
+            TextView tv = (TextView)v.findViewById(android.R.id.title);
+            if(tv == null) continue;
+            v.setBackgroundResource(R.drawable.tab_selector);
+            tv.setTextColor(getResources().getColorStateList(R.color.tab_text));
+        }
 
 
         // --------------- Listview ----------------

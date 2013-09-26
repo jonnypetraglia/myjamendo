@@ -4,6 +4,7 @@ Fragments:
   + List Fragment (listview with List Items; loads them based on Queue Source)
   + Main Fragment (tabs, search, and a list fragment)
   + Now Playing
+  - About
   - Profile
   - Settings
   - Start Page (pretty logo)
@@ -12,6 +13,7 @@ Fragments:
   - Artist Page (Pic, Artist, genres, collapsible desc, Top Tracks, Discographie)
     - track fragment
     - album fragment
+  - Login
 
 Other Layouts:
   + List Item (Album art, Title, Subtitle, menu button on right)
@@ -21,9 +23,9 @@ Other Layouts:
 
 
 Clicking an item in Swipe switches to (does not stack) Fragment in Main
-  - Insert data into the Fragment to determine what type it is.
+  - Insert data into the LISTVIEW to determine what type it is.
   - Show tabs if it is: Featured, Search
-  - Show search bar if it is: Search
+  ? Show search bar if it is: Search???
 
 
 
@@ -33,7 +35,7 @@ Inside Fragments Events:
   - Press Listview Item
     - Options of things it can be:
       - Featured
-        - Track = Fetch to Cache, change Queue Source, and Start Playing
+        - Track = Fetch current list to Cache, change Queue Source, and Start Playing
         - Album = Stack Album Page fragment
         - Artist = Stack Artist Page fragment
   - Press Tab
@@ -60,7 +62,9 @@ Queue Source is where the songs are currently coming from.
 
 Fetch to Cache:
   - Pulls a list of tracks and stores it in the "SQL Cache"; a table of tracks
-  - Is set to contain what the Queue Source is, and when (each item) was fetched
+  - Is set to contain what the Queue Source is, and when the query was issued
+  - After a certain amnt of time, cache will be pruned; i.e. 24hrs for Popular, ~1hr for user stuff
+  - Need to figure out how to fetch while scrolling down and update the listview seamlessly
 
 
 Load into Listview from Cache:
@@ -93,8 +97,9 @@ Load into Listview from Cache:
 Gesture on side-button
 Theme Now Playing
 Cache:  http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html
-
+Settings: how often to update cache (slider; often, really often, seldom, manually)
+Settings: space for cache (images; maybe songs)
 
 TitleBar: Jamendo icon for loading
-"jamendo" theme
-Main: onItemClick
+Theming
+JListView: onItemClick

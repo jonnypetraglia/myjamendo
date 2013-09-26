@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class NavigationFragment extends ListFragment
 {
-    MasterActivity MasterActivityRef;
     View contentView;
 
     ArrayList<NavigationEntry> entries;
@@ -26,7 +25,6 @@ public class NavigationFragment extends ListFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        MasterActivityRef = (MasterActivity) getActivity();
         contentView = super.onCreateView(inflater, container, savedInstanceState);
 
         return contentView;
@@ -55,12 +53,9 @@ public class NavigationFragment extends ListFragment
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            Fragment f = getFragmentManager().findFragmentById(R.id.frag_main);
-            if(f!=null)
-                transaction.remove(f);
-
             String selection = entries.get(position).value;
-            boolean shouldShowSearch = false;
+            boolean shouldShowSearch = false,
+                    clearFragmentStack = true;
 
             Log.wtf("Derp",selection + "!!!");
             do {
@@ -70,7 +65,7 @@ public class NavigationFragment extends ListFragment
                     MainFragment mf = new MainFragment(false);
                     getFragmentManager().popBackStackImmediate();
                     transaction.replace(R.id.frag_main, mf);
-                    MasterActivityRef.setupTitlebar(R.string.radios, false);
+                    ((MasterActivity)getActivity()).setupTitlebar(R.string.radios, false);
                     //shouldShowSearch = false; //TODO: search
                     break;
                 }
@@ -78,9 +73,8 @@ public class NavigationFragment extends ListFragment
                 {
                     //TODO: Fetch Featured
                     MainFragment mf = new MainFragment(true);
-                    getFragmentManager().popBackStackImmediate();
                     transaction.replace(R.id.frag_main, mf);
-                    MasterActivityRef.setupTitlebar(R.string.radios, false);
+                    ((MasterActivity)getActivity()).setupTitlebar(R.string.radios, false);
                     //shouldShowSearch = true; //TODO: search
                     break;
                 }
@@ -96,7 +90,10 @@ public class NavigationFragment extends ListFragment
                 }
                 if(getResources().getString(R.string.about).equals(selection))
                 {
-                    //TODO
+                    AboutFragment af = new AboutFragment();
+                    transaction.replace(R.id.frag_main, af);
+                    ((MasterActivity)getActivity()).setupTitlebar(R.string.about, false);
+                    clearFragmentStack = false;
                     break;
                 }
                 if(getResources().getString(R.string.search).equals(selection))
@@ -120,9 +117,21 @@ public class NavigationFragment extends ListFragment
                     //TODO
                     break;
                 }
+                if(getResources().getString(R.string.log_in).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
                 //not found
                 return;
             } while(false);
+
+            Fragment f = getFragmentManager().findFragmentById(R.id.frag_main);
+            if(f!=null && clearFragmentStack)
+            {
+                getFragmentManager().popBackStackImmediate();
+                transaction.remove(f);
+            }
 
             transaction.addToBackStack(null);
             transaction.commit();
