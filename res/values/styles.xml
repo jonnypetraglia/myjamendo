@@ -23,7 +23,6 @@
         ListView:
             Background
             Selector
-            Text color
 
         Tabs
     -->
@@ -48,6 +47,12 @@
 
     <style name="listview_subtitle" parent="listview_title">
         <item name="@android:textSize">12sp</item>
+    </style>
+
+    <style name="listview">
+        <item name="@android:choiceMode">singleChoice</item>
+        <item name="@android:divider">@color/icon_color</item>
+        <item name="@android:dividerHeight">2px</item>
     </style>
 
 </resources>

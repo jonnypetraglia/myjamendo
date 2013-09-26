@@ -1,7 +1,6 @@
 package com.qweex.myjamendo;
 
 import android.app.Fragment;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,13 +11,10 @@ import android.widget.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// Cache:  http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html
 
 public class MainFragment extends Fragment
 {
-    MasterActivity MasterActivityRef;
-
-    ListFragment list_frag;
+    JListView listview;
     TabHost tabs;
     View contentView;
 
@@ -27,7 +23,6 @@ public class MainFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                 Bundle savedInstanceStatee)
     {
-        MasterActivityRef = (MasterActivity) getActivity();
         contentView = inflater.inflate(R.layout.main, container, false);
 
 
@@ -46,10 +41,9 @@ public class MainFragment extends Fragment
 
 
         // --------------- Listview ----------------
-        list_frag = (ListFragment) MainFragment.this.getFragmentManager().findFragmentById(R.id.frag_listview);
+        listview = (JListView) contentView.findViewById(R.id.listview);
         tabs.setCurrentTab(0);
         changeTab.onTabChanged(tabs.getCurrentTabTag());
-        list_frag.getListView().setOnItemClickListener(clickLVItem);
 
 
         return contentView;
@@ -72,19 +66,11 @@ public class MainFragment extends Fragment
         return h;
     }
 
-    /** Click item; maybe move this to a separate class **/
-    AdapterView.OnItemClickListener clickLVItem = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            //TODO
-        }
-    };
-
     /** Change tabs, so change fragments **/
     TabHost.OnTabChangeListener changeTab = new TabHost.OnTabChangeListener() {
         @Override
         public void onTabChanged(String s) {
-            Log.d("MainActivity", s);
+            Log.d("Derp MainActivity", "Tab: " + s);
 
             String[] keys = {"album_art", "track", "album"};
             ArrayList<HashMap<String,String>> data = new ArrayList<HashMap<String,String>>();
@@ -98,16 +84,8 @@ public class MainFragment extends Fragment
                                                                   R.layout.listview_row, keys, data);
 
 
-            /*
-            if(list_frag.getArguments()==null)
-            {
-                Bundle arg = new Bundle();
-                arg.putString("type", s);
-                list_frag.setArguments(arg);
-            } else
-                list_frag.getArguments().putString("type", s);
-            */
-            list_frag.setListAdapter(adapter);
+            listview.setType(s);
+            listview.setAdapter(adapter);
         }
     };
 }

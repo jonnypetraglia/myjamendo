@@ -46,10 +46,11 @@
         </LinearLayout>
     </TabHost>
 
-    <fragment android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:name="com.qweex.myjamendo.ListFragment"
-              android:id="@+id/frag_listview"
-              android:layout_gravity="center"/>
 
+    <com.qweex.myjamendo.JListView
+            style="@style/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listview"
+        />
 </LinearLayout>

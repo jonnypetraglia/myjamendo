@@ -1,4 +1,9 @@
 Fragments:
+  + Titlebar (swipe button, title, Jamendo loading icon)
+  + Swipe menu (user{My Profile, Playlists, Favorites, ...}, menu{Featured, Radios, Search, Settings})
+  + List Fragment (listview with List Items; loads them based on Queue Source)
+  + Main Fragment (tabs, search, and a list fragment)
+  + Now Playing
   - Profile
   - Settings
   - Start Page (pretty logo)
@@ -8,15 +13,10 @@ Fragments:
     - track fragment
     - album fragment
 
-JUST layouts:
-  - Tabs (Track, Album, Artists, etc)
-  - Search Bar
-
 Other Layouts:
-  - List Item (Album art, Title, Subtitle, menu button on right)
-  - Main (has Titlebar and fragment)
-  - Supreme Master (has Main, Swipe, and pull up containing Now Playing)
-  - Tablet Master (has Swipe, Main, and Now Playing which can be hidden)
+  + List Item (Album art, Title, Subtitle, menu button on right)
+  + Phone Master (has Main, Swipe, and pull up containing Now Playing)
+  + Tablet Master (has Swipe, Main, and Now Playing which can be hidden)
   - Old Master (has Main; swipe button is replaced with back button; swipe is inserted into main when pressed back)
 
 
@@ -90,7 +90,9 @@ Load into Listview from Cache:
 
 
 
-
+Gesture on side-button
+Theme Now Playing
+Cache:  http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html
 
 
 TitleBar: Jamendo icon for loading

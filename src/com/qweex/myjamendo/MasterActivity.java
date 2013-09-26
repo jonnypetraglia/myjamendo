@@ -3,6 +3,7 @@ package com.qweex.myjamendo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -25,8 +26,7 @@ public class MasterActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        boolean isTablet = true && false;
-        if(isTablet)
+        if(false) //isTablet)
         {
             DeviceType = DEVICE_TYPE.TABLET;
             setContentView(R.layout.master_tablet);
@@ -45,7 +45,15 @@ public class MasterActivity extends Activity
         stopLoading();
 
 
-        setupTabs("Jamendo", false, false);
+        setupTabs("Jamendo", false, false); //todo
+    }
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    public void setupTabs(int titleID, boolean showSearch, boolean showTabs) {
+        setupTabs(getResources().getString(titleID), showSearch, showTabs);
     }
 
     public void setupTabs(String title, boolean showSearch, boolean showTabs)
@@ -56,7 +64,6 @@ public class MasterActivity extends Activity
             - Search (show/hide
             - tabs (show/hide)
         */
-
 
         findViewById(R.id.titlebar_search).setVisibility(showSearch ? View.VISIBLE : View.GONE);
         findViewById(R.id.tabHost).setVisibility(showTabs ? View.VISIBLE : View.GONE);

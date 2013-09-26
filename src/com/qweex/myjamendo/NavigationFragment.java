@@ -1,13 +1,16 @@
 package com.qweex.myjamendo;
 
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 
@@ -25,17 +28,6 @@ public class NavigationFragment extends ListFragment
         MasterActivityRef = (MasterActivity) getActivity();
         contentView = super.onCreateView(inflater, container, savedInstanceState);
 
-/*
-        <ListView android:id="@+id/left_drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111"/>
-*/
-
         return contentView;
     }
 
@@ -43,9 +35,74 @@ public class NavigationFragment extends ListFragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        this.getListView().setBackgroundColor(getResources().getColor(R.color.j_shadow));
+        getListView().setBackgroundColor(getResources().getColor(R.color.j_shadow)); //TODO: Themify
+        getListView().setOnItemClickListener(selectNav);
         createAdapter();
     }
+
+
+    ListView.OnItemClickListener selectNav = new ListView.OnItemClickListener(){
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+
+
+            String selection = ((TextView)view).getText().toString();
+
+            if(getResources().getString(R.string.radios).equals(selection))
+            {
+                //TODO: Fetch Radios
+                MainFragment mf = new MainFragment();
+                transaction.replace(R.id.frag_main, mf);
+                MasterActivityRef.setupTabs(R.string.radios, false, false);
+            }
+            if(getResources().getString(R.string.featured).equals(selection))
+            {
+                //TODO
+            }
+            if(getResources().getString(R.string.search).equals(selection))
+            {
+                //TODO
+            }
+            if(getResources().getString(R.string.settings).equals(selection))
+            {
+                //TODO
+            }
+            if(getResources().getString(R.string.about).equals(selection))
+            {
+                //TODO
+            }
+            if(getResources().getString(R.string.search).equals(selection))
+            {
+                //TODO
+            }
+
+
+            if(getResources().getString(R.string.my_profile).equals(selection))
+            {
+                //TODO
+            }
+            if(getResources().getString(R.string.playlists).equals(selection))
+            {
+                //TODO
+            }
+            if(getResources().getString(R.string.favorites).equals(selection))
+            {
+                //TODO
+            }
+            Log.wtf("Derp",((TextView)view).getText().toString() + "!!!");
+
+
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+            DrawerLayout d = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+            d.closeDrawer(Gravity.LEFT);
+        }
+    };
 
     private void createAdapter()
     {
