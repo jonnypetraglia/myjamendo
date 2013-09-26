@@ -18,6 +18,13 @@ public class MainFragment extends Fragment
     TabHost tabs;
     View contentView;
 
+    boolean tabsVisible;
+
+    MainFragment(boolean tabsVisible)
+    {
+        this.tabsVisible = tabsVisible;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +61,13 @@ public class MainFragment extends Fragment
             ft.add(R.id.fragment_container, tb).commit();
         }
         //*/
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        contentView.findViewById(R.id.tabHost).setVisibility(tabsVisible ? View.VISIBLE : View.GONE);
     }
 
     /** DEBUG */

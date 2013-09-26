@@ -28,6 +28,13 @@
     -->
         <item name="android:windowActionBar">true</item>
     </style>
+
+    <style name="titlebar_txt">
+        <item name="@android:textColor">@color/primary_text</item>
+        <item name="@android:textSize">20sp</item>
+        <item name="@android:textAllCaps">true</item>
+    </style>
+
     <style name="nav_title">
         <item name="@android:textColor">@color/soft_txt_color</item>
         <item name="@android:padding">5sp</item>

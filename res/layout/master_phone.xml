@@ -25,11 +25,16 @@
                 android:background="@android:color/white">
 
 
-            <fragment android:layout_width="match_parent"
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/frag_main"/>
+
+            <!--<fragment android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:name="com.qweex.myjamendo.MainFragment"
                       android:id="@+id/frag_main"
-                      android:layout_gravity="center"/>
+                      android:layout_gravity="center"/>-->
 
             <SlidingDrawer
                     android:layout_width="fill_parent"

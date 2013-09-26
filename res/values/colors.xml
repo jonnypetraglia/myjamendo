@@ -8,4 +8,5 @@
     <color name="j_bottom">#432144</color>
     <color name="j_shadow">#251225</color>
     <color name="soft_txt_color">#888888</color>
+    <color name="primary_text">#ffffff</color>
 </resources>

@@ -45,18 +45,18 @@ public class MasterActivity extends Activity
         stopLoading();
 
 
-        setupTabs("Jamendo", false, false); //todo
+        setupTitlebar("Jamendo", false); //todo
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
-    public void setupTabs(int titleID, boolean showSearch, boolean showTabs) {
-        setupTabs(getResources().getString(titleID), showSearch, showTabs);
+    public void setupTitlebar(int titleID, boolean showSearch) {
+        setupTitlebar(getResources().getString(titleID), showSearch);
     }
 
-    public void setupTabs(String title, boolean showSearch, boolean showTabs)
+    public void setupTitlebar(String title, boolean showSearch)
     {
         // --------------- Show/hide views ----------------
         /* Extras:
@@ -66,11 +66,11 @@ public class MasterActivity extends Activity
         */
 
         findViewById(R.id.titlebar_search).setVisibility(showSearch ? View.VISIBLE : View.GONE);
-        findViewById(R.id.tabHost).setVisibility(showTabs ? View.VISIBLE : View.GONE);
 
 
         // --------------- Titlebar ----------------
-        /*DEBUG*/ title = "Derp";
+        if(title==null)
+            title="";
         ((TextView)findViewById(R.id.titlebar_title)).setText(title);
 
 

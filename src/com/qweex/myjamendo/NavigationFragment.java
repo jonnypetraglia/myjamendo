@@ -1,5 +1,6 @@
 package com.qweex.myjamendo;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
@@ -38,6 +39,13 @@ public class NavigationFragment extends ListFragment
         getListView().setBackgroundColor(getResources().getColor(R.color.j_shadow)); //TODO: Themify
         getListView().setOnItemClickListener(selectNav);
         createAdapter();
+        int pos = 0;
+        for(; pos<entries.size(); pos++)
+        {
+            if(getResources().getString(R.string.radios).equals(entries.get(pos).value))
+                break;
+        }
+        selectNav.onItemClick(null, null, pos, 0);    //DEBUG: select the first tab
     }
 
 
@@ -47,60 +55,82 @@ public class NavigationFragment extends ListFragment
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            Fragment f = getFragmentManager().findFragmentById(R.id.frag_main);
+            if(f!=null)
+                transaction.remove(f);
 
+            String selection = entries.get(position).value;
+            boolean shouldShowSearch = false;
 
+            Log.wtf("Derp",selection + "!!!");
+            do {
+                if(getResources().getString(R.string.radios).equals(selection))
+                {
+                    //TODO: Fetch Radios
+                    MainFragment mf = new MainFragment(false);
+                    getFragmentManager().popBackStackImmediate();
+                    transaction.replace(R.id.frag_main, mf);
+                    MasterActivityRef.setupTitlebar(R.string.radios, false);
+                    //shouldShowSearch = false; //TODO: search
+                    break;
+                }
+                if(getResources().getString(R.string.featured).equals(selection))
+                {
+                    //TODO: Fetch Featured
+                    MainFragment mf = new MainFragment(true);
+                    getFragmentManager().popBackStackImmediate();
+                    transaction.replace(R.id.frag_main, mf);
+                    MasterActivityRef.setupTitlebar(R.string.radios, false);
+                    //shouldShowSearch = true; //TODO: search
+                    break;
+                }
+                if(getResources().getString(R.string.search).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
+                if(getResources().getString(R.string.settings).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
+                if(getResources().getString(R.string.about).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
+                if(getResources().getString(R.string.search).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
 
-            String selection = ((TextView)view).getText().toString();
-
-            if(getResources().getString(R.string.radios).equals(selection))
-            {
-                //TODO: Fetch Radios
-                MainFragment mf = new MainFragment();
-                transaction.replace(R.id.frag_main, mf);
-                MasterActivityRef.setupTabs(R.string.radios, false, false);
-            }
-            if(getResources().getString(R.string.featured).equals(selection))
-            {
-                //TODO
-            }
-            if(getResources().getString(R.string.search).equals(selection))
-            {
-                //TODO
-            }
-            if(getResources().getString(R.string.settings).equals(selection))
-            {
-                //TODO
-            }
-            if(getResources().getString(R.string.about).equals(selection))
-            {
-                //TODO
-            }
-            if(getResources().getString(R.string.search).equals(selection))
-            {
-                //TODO
-            }
-
-
-            if(getResources().getString(R.string.my_profile).equals(selection))
-            {
-                //TODO
-            }
-            if(getResources().getString(R.string.playlists).equals(selection))
-            {
-                //TODO
-            }
-            if(getResources().getString(R.string.favorites).equals(selection))
-            {
-                //TODO
-            }
-            Log.wtf("Derp",((TextView)view).getText().toString() + "!!!");
-
+                if(getResources().getString(R.string.my_profile).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
+                if(getResources().getString(R.string.playlists).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
+                if(getResources().getString(R.string.favorites).equals(selection))
+                {
+                    //TODO
+                    break;
+                }
+                //not found
+                return;
+            } while(false);
 
             transaction.addToBackStack(null);
             transaction.commit();
 
             DrawerLayout d = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-            d.closeDrawer(Gravity.LEFT);
+            if(d!=null)
+                d.closeDrawer(Gravity.LEFT);
+            ((MasterActivity)getActivity()).setupTitlebar(selection, shouldShowSearch);
         }
     };
 
